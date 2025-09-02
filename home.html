@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FoodVegan — Menú</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="home">
+  <!-- Botón hamburguesa + cortina -->
+<button id="cvBurger" class="cv-burger" aria-label="Abrir menú">
+  <span class="bars"></span>
+</button>
+<!-- Botón carrito simple -->
+<button id="miniCart" class="mini-cart" aria-label="Carrito">
+  🛒 <span id="miniCount">0</span>
+</button>
+<!-- Panel mínimo del carrito -->
+<div id="miniCartPanel" class="mini-panel" hidden>
+  <div class="mp-card" role="dialog" aria-label="Carrito">
+    <div class="mp-head">
+      <h4>Tu carrito</h4>
+      <button id="mpClose" class="mp-x" aria-label="Cerrar">×</button>
+    </div>
+
+    <ul id="mpList" class="mp-list"><!-- items aquí --></ul>
+
+    <div class="mp-total">
+      <span>Total</span>
+      <strong id="mpTotal">$0</strong>
+    </div>
+
+    <div class="mp-actions">
+      <button id="mpClear" class="sec">Vaciar</button>
+      <button id="mpConfirm" class="pri">Ir a pedido</button>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="cvCurtain" class="cv-curtain" aria-hidden="true">
+  <aside class="cv-panel" role="navigation" aria-label="Menú lateral">
+    <button id="cvClose" class="cv-close" aria-label="Cerrar">×</button>
+
+    <nav class="cv-nav">
+      <a class="cv-link" href="perfil.html">👤 Perfil</a>
+      <a class="cv-link" href="editar.html">✏️ Editar</a>
+      <a class="cv-link" href="ajustes.html">⚙️ Ajustes</a>
+      <a class="cv-link" href="pedido.html">🛒 Pedido</a>
+      <a id="cvLogout" class="cv-link" href="#">🚪 Cerrar sesión</a>
+    </nav>
+  </aside>
+</div>
+
+
+  <!-- Topbar simple -->
+  <div class="topbar">
+    <span><i class="fa-solid fa-location-dot"></i> Av. Verde 123</span>
+    <span><i class="fa-solid fa-phone"></i> +56 9 1234 5678</span>
+    <span><i class="fa-solid fa-clock"></i> Lun–Dom 12:00–22:00</span>
+  </div>
+
+  <header class="header container">
+    <h1 class="brand">FoodVegan</h1>
+    <p class="strap">Comida rica, 100% plant-based 🌿</p>
+  </header>
+
+  <!-- Filtros -->
+  <section class="container">
+    <div class="filters" id="filters">
+      <button class="chip is-active" data-cat="all">Todo</button>
+      <button class="chip" data-cat="platos">Platos</button>
+      <button class="chip" data-cat="postres">Postres</button>
+      <button class="chip" data-cat="jugos">Jugos</button>
+      <button class="chip" data-cat="recetas">Recetas</button>
+    </div>
+  </section>
+
+  <!-- Grid del menú -->
+  <main class="container">
+    <div class="grid" id="menuGrid">
+      <!-- PLATOS -->
+      <article class="card" data-cat="platos">
+        <img src="imagenesfoodvegan/garbanzos.jpg" alt="">
+        <div class="card-b">
+          <h3>Bowl buda</h3>
+          <p>Quinoa, garbanzos, verdes y tahini.</p>
+          <div class="card-f">
+            <span class="price">$6.900</span>
+            <button class="btn add-to-cart"
+    data-id="bowl-buda"
+    data-name="Bowl buda"
+    data-price="6900">
+    Agregar
+</button>
+
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-cat="platos">
+        <img src="imagenesfoodvegan/hamburguesa-vegana.jpg" alt="">
+        <div class="card-b">
+          <h3>Hamburguesa tofu</h3>
+          <p>Tofu crispy, pan artesanal, alioli vegano.</p>
+          <div class="card-f">
+            <span class="price">$7.500</span>
+            <button class="btn add-to-cart"
+    data-id="hamburguesa-tofu"
+    data-name="Hamburguesa tofu"
+    data-price="7500">
+    Agregar
+</button>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- POSTRES -->
+      <article class="card" data-cat="postres">
+        <img src="imagenesfoodvegan/mousse-de-chocolate.jpg" alt="">
+        <div class="card-b">
+          <h3>Mousse de cacao</h3>
+          <p>Avellanas, cacao, leche de almendras.</p>
+          <div class="card-f">
+            <span class="price">$3.900</span>
+            <button class="btn add-to-cart"
+        data-id="mousse-cacao"
+        data-name="Mousse de cacao"
+        data-price="3900">
+        Agregar
+      </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- JUGOS -->
+      <article class="card" data-cat="jugos">
+        <img src="imagenesfoodvegan/JUGOdetox.jpg" alt="">
+        <div class="card-b">
+          <h3>Verde detox</h3>
+          <p>Manzana, apio, pepino, limón.</p>
+          <div class="card-f">
+            <span class="price">$3.200</span>
+            <button class="btn add-to-cart"
+        data-id="verde-detox"
+        data-name="Verde detox"
+        data-price="3200">
+        Agregar
+      </button>
+          </div>
+        </div>
+      </article>
+
+<!-- Nueva sección de bebidas -->
+
+
+<article class="card" data-cat="jugos">
+        <img src="imagenesfoodvegan/jugo-de-fruta.jpg" alt="">
+        <div class="card-b">
+          <h3>Natural detox</h3>
+          <p>Manzana, apio, pepino, limón.</p>
+          <div class="card-f">
+            <span class="price">$3.200</span>
+            <button class="btn add-to-cart"
+        data-id="natural-detox"
+        data-name="Natural detox"
+        data-price="3200">
+        Agregar
+      </button>
+          </div>
+        </div>
+      </article>
+
+<!-- Nueva sección de postres -->
+<article class="card" data-cat="postres">
+        <img src="imagenesfoodvegan/brownie-vegano.jpg" alt="">
+        <div class="card-b">
+          <h3>Brownie vegano</h3>
+          <p>platano, avena, chocolate amargo.</p>
+          <div class="card-f">
+            <span class="price">$4.500</span>
+             <button class="btn add-to-cart"
+        data-id="brownie-vegano"
+        data-name="Brownie vegano"
+        data-price="4500">
+        Agregar
+      </button>
+          </div>
+        </div>
+      </article>
+
+<article class="card" data-cat="postres">
+        <img src="imagenesfoodvegan/Cheesecake.png" alt="">
+        <div class="card-b">
+          <h3>Cheesecake vegano</h3>
+          <p>harina, frutos rojos, limón.</p>
+          <div class="card-f">
+            <span class="price">$3.200</span>
+            <button class="btn add-to-cart"
+        data-id="cheesecake-vegano"
+        data-name="Cheesecake vegano"
+        data-price="3200">
+        Agregar
+      </button>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- RECETAS (solo lectura) -->
+      <article class="card recipe" data-cat="recetas">
+        <img src="imagenesfoodvegan/pesto.jpg" alt="">
+        <div class="card-b">
+          <h3>Receta: Pasta pesto</h3>
+          <p>Albahaca, nueces, aceite de oliva, levadura nutricional.</p>
+          <a href="#" class="link">Ver receta</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+  <div class="container-footer">
+    <p>FoodVegan © 2025 — Hecho con amor por las plantas 🌱</p>
+    
+    <div class="social-links">
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  /* ========== FILTRO POR CATEGORÍA (tu código) ========== */
+  const filters = document.getElementById('filters');
+  if (filters) {
+    const chips = filters.querySelectorAll('.chip');
+    const cards = document.querySelectorAll('#menuGrid [data-cat]');
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      chips.forEach(c => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const cat = btn.dataset.cat;
+      cards.forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  }
+
+  /* ========== MENÚ CORTINA (hamburguesa) ========== */
+  const curtain  = document.getElementById('cvCurtain');
+  const burger   = document.getElementById('cvBurger');
+  const cvClose  = document.getElementById('cvClose');
+  const cvLogout = document.getElementById('cvLogout');
+
+  const openCurtain  = () => { if(!curtain) return; curtain.classList.add('open'); curtain.setAttribute('aria-hidden','false'); };
+  const closeCurtain = () => { if(!curtain) return; curtain.classList.remove('open'); curtain.setAttribute('aria-hidden','true'); };
+
+  if (burger && curtain)  burger.addEventListener('click', openCurtain);
+  if (cvClose)            cvClose.addEventListener('click', closeCurtain);
+  if (curtain)            curtain.addEventListener('click', e => { if (e.target === curtain) closeCurtain(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCurtain(); });
+
+  if (cvLogout) {
+    cvLogout.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('usuarioActivo'); // ajusta si usas otra key
+      window.location.href = 'index.html';
+    });
+  }
+
+  /* ========== CARRITO (panel +/−/🗑) ========== */
+  const CART_KEY = 'cartSimple';
+  const $ = s => document.querySelector(s);
+
+  const cartBtn  = $('#miniCart');
+  const panel    = $('#miniCartPanel');
+  const mpClose  = $('#mpClose');
+  const listEl   = $('#mpList');
+  const totalEl  = $('#mpTotal');
+  const clearBtn = $('#mpClear');
+  const goBtn    = $('#mpConfirm');
+  const countEl  = document.getElementById('miniCount');
+
+  const money = n => new Intl.NumberFormat('es-CL', { style:'currency', currency:'CLP', maximumFractionDigits:0 }).format(n || 0);
+
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { cart = []; }
+
+  function save(){ localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCounter(); }
+  function total(){ return cart.reduce((s,p)=> s + (Number(p.price)||0)*(p.qty||0), 0); }
+  function updateCounter(){ if(countEl) countEl.textContent = cart.reduce((s,p)=> s+(p.qty||0), 0); }
+
+  function render(){
+    if(!listEl || !totalEl) return;
+    if(!cart.length){
+      listEl.innerHTML = '<li style="opacity:.8">Tu carrito está vacío.</li>';
+      totalEl.textContent = money(0);
+      return;
+    }
+    listEl.innerHTML = '';
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'mp-item';
+      li.dataset.id = item.id;
+      li.innerHTML = `
+        <div>
+          <div class="mp-name">${item.name}</div>
+          <div style="opacity:.9">${money(item.price)} c/u</div>
+        </div>
+        <div class="mp-row">
+          <button class="mp-dec" aria-label="Quitar">−</button>
+          <span>${item.qty}</span>
+          <button class="mp-inc" aria-label="Sumar">＋</button>
+          <button class="mp-del" aria-label="Eliminar">🗑</button>
+        </div>`;
+      listEl.appendChild(li);
+    });
+    totalEl.textContent = money(total());
+  }
+
+  const openPanel  = () => { if(!panel) return; render(); panel.hidden = false; };
+  const closePanel = () => { if(!panel) return; panel.hidden = true;  };
+
+  if (cartBtn) cartBtn.addEventListener('click', openPanel);   // <-- ÚNICO click del icono 🛒
+  if (mpClose) mpClose.addEventListener('click', closePanel);
+  if (panel)   panel.addEventListener('click', e => { if (e.target === panel) closePanel(); });
+
+  if (listEl) listEl.addEventListener('click', (e) => {
+    const li = e.target.closest('.mp-item'); if (!li) return;
+    const id = li.dataset.id;
+    const idx = cart.findIndex(p => p.id === id); if (idx < 0) return;
+    if (e.target.classList.contains('mp-inc')) cart[idx].qty++;
+    if (e.target.classList.contains('mp-dec')) { cart[idx].qty--; if (cart[idx].qty <= 0) cart.splice(idx, 1); }
+    if (e.target.classList.contains('mp-del')) cart.splice(idx, 1);
+    save(); render();
+  });
+
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (!cart.length) return;
+    if (confirm('¿Vaciar carrito?')) { cart = []; save(); render(); }
+  });
+
+  if (goBtn) goBtn.addEventListener('click', () => {
+    if (!cart.length) { alert('Tu carrito está vacío'); return; }
+    const pedido = { items: cart, total: total(), ts: new Date().toISOString() };
+    localStorage.setItem('ultimoPedido', JSON.stringify(pedido));
+    closePanel();
+    window.location.href = 'pedido.html';
+  });
+
+  // Botones "Agregar" de las cards
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id    = btn.dataset.id;
+      const name  = btn.dataset.name || 'Producto';
+      const price = Number(btn.dataset.price) || 0;
+      const found = cart.find(p => p.id === id);
+      if (found) found.qty++;
+      else cart.push({ id, name, price, qty: 1 });
+      save(); updateCounter();
+    });
+  });
+
+  updateCounter();  // contador al cargar
+});
+</script>
+
+</body>
+</html>
+

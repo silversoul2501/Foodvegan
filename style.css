@@ -1,0 +1,678 @@
+/* Paleta y base */
+:root{
+  --bg: #f3f8f4;           /* fondo suave */
+  --card: #ffffff;         /* tarjeta */
+  --text: #2b3a2e;         /* texto principal */
+  --muted: #516557;        /* texto secundario */
+  --primary: #3da35d;      /* verde hoja */
+  --primary-600:#338d50;
+  --accent: #a5d6a7;       /* verde claro */
+  --ring: rgba(61,163,93,0.25);
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height:100%;
+}
+
+
+
+body{
+  margin:0;
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+
+/* ====== Login / Registro / (con foto) ====== */
+body.auth{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  background: url("imagenesfoodvegan/fondo-verduras2.jpg") center/cover fixed no-repeat;
+  position: relative;
+}
+
+/* Oscurecer un poco la foto para que el formulario se lea mejor */
+body.auth::before{
+  content:"";
+  position:fixed; inset:0;
+  background: rgba(0,0,0,.25);
+  z-index:0;
+}
+
+/* Asegúrate que tu caja del formulario quede arriba del overlay */
+.formulario{ position: relative; z-index:1; }
+
+/* ====== Home (colores claros, sin foto) ====== */
+body.home{
+  background: #f6faf7;            /* verde muy suave */
+  color:#2b3a2e;
+}
+
+
+
+
+
+/* Tarjeta */
+.formulario{
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid #e6efe7;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.06),
+    0 2px 8px rgba(0,0,0,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Borde decorativo hoja */
+.formulario::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 20px;
+  padding:1px; /* grosor del borde */
+  background: linear-gradient(135deg, #b7e4c7, #74c69d, #52b788);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events:none;
+}
+
+/* Logo vegano */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:600;
+  color: var(--primary-600);
+  letter-spacing: .3px;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+.logo .leaf{ filter: drop-shadow(0 1px 0 rgba(0,0,0,.05)); }
+
+h1{
+  margin: 4px 0 16px;
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+/* Grupos de campos */
+.username, .contrasena{
+  display:flex;
+  flex-direction: column;
+  gap:8px;
+  margin-bottom: 14px;
+}
+
+label{
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"]{
+  width:100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border:1.2px solid #dbe7de;
+  background:#f8fbf9;
+  outline:none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  font-size: 15px;
+}
+input::placeholder{ color:#9bb4a1; }
+
+input[type="text"]:focus,
+input[type="password"]:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--ring);
+  background:#ffffff;
+}
+
+/* Enlaces secundarios */
+.recordar{
+  display:flex;
+  justify-content:flex-end;
+  margin: 6px 0 10px;
+}
+.recordar a{
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+.recordar a:hover{
+  color: var(--primary-600);
+  text-decoration: underline;
+}
+
+/* Botón principal */
+.btn,
+input[type="submit"]{
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-600));
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .2px;
+  cursor:pointer;
+  transition: transform .06s ease, filter .2s ease, box-shadow .2s ease;
+  box-shadow: 0 6px 16px rgba(61,163,93,.25);
+}
+.btn:hover{
+  filter: brightness(1.02);
+  box-shadow: 0 10px 22px rgba(61,163,93,.32);
+}
+.btn:active{ transform: translateY(1px); }
+
+/* Registro */
+.registrarse{
+  text-align:center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.registrarse a{
+  color: var(--primary-600);
+  font-weight:600;
+  text-decoration:none;
+  border-bottom: 2px solid rgba(61,163,93,.25);
+  padding-bottom: 1px;
+}
+.registrarse a:hover{
+  border-bottom-color: rgba(61,163,93,.6);
+}
+
+/* Responsive pequeño */
+@media (max-width: 380px){
+  .formulario{ padding: 24px 18px; }
+  h1{ font-size: 22px; }
+}
+
+/* Reutiliza el tema del login; añadimos utilidades para registro */
+.grid-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.campo{ display:flex; flex-direction:column; gap:8px; }
+
+.hint{
+  margin: 6px 2px 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.hint.error{ color: #b3261e; }
+.hint.ok{ color: var(--primary-600); }
+
+/* Ajuste responsive */
+@media (max-width: 480px){
+  .grid-2{ grid-template-columns: 1fr; }
+}
+/* =========================
+   1) Variables & helpers
+========================= */
+:root{
+  --bg:#f6faf7;
+  --surface:#ffffff;
+  --ink:#1f2a24;
+  --muted:#6a7c73;
+  --line:#e6efe7;
+  --primary:#3da35d;
+  --primary-600:#2f8249;
+  --ring:rgba(61,163,93,.25);
+}
+.container{ max-width:1100px; margin:0 auto; padding:0 20px; }
+.muted{ color:var(--muted); }
+
+/* =========================
+   2) Base
+========================= */
+body.home{
+  margin:0;
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+/* =========================
+   3) Topbar & Header
+========================= */
+.topbar{
+  background:var(--primary-600);
+  color:#fff;
+  display:flex; justify-content:center; gap:26px;
+  padding:8px 12px; font-size:14px;
+}
+.topbar i{ margin-right:6px; }
+
+.header{ text-align:center; padding:28px 0 14px; }
+.brand{ margin:0; font-size:28px; color:var(--primary-600); letter-spacing:.5px; }
+.strap{ margin:6px 0 0; color:var(--muted); }
+
+/* =========================
+   4) Filtros
+========================= */
+.filters{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:16px 0 8px; }
+.chip{
+  border:1px solid var(--line); background:#fff; color:var(--ink);
+  padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:600;
+}
+.chip.is-active{ background:var(--primary); color:#fff; border-color:var(--primary); }
+
+/* =========================
+   5) Grid & Cards
+========================= */
+.grid{
+  display:grid; gap:18px;
+  grid-template-columns: repeat(4,1fr);
+}
+@media (max-width:1000px){ .grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){ .grid{ grid-template-columns: 1fr; } }
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px; overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,.06);
+  display:flex; flex-direction:column;
+}
+.card img{ width:100%; height:160px; object-fit:cover; }
+.card-b{ padding:14px; display:flex; flex-direction:column; gap:8px; }
+.card h3{ margin:0; font-size:18px; color:var(--ink); }
+.card p{ margin:0; color:var(--muted); }
+.card-f{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; }
+.price{ font-weight:800; color:var(--primary-600); }
+
+/* Recetas (sin precio, con link) */
+.card.recipe .card-f{ display:none; }
+.card .link{ color:var(--primary-600); text-decoration:none; font-weight:700; }
+
+/* =========================
+   6) Botones
+========================= */
+.btn{
+  background:linear-gradient(180deg,var(--primary),var(--primary-600));
+  color:#fff; border:none; padding:10px 14px; border-radius:10px;
+  font-weight:700; cursor:pointer; box-shadow:0 8px 16px var(--ring);
+}
+.btn:hover{ filter:brightness(1.05); }
+
+/* =========================
+   7) Footer
+========================= */
+.footer{ margin-top:26px; border-top:1px solid var(--line); background:#fff; }
+.foot-flex{ display:flex; gap:12px; align-items:center; justify-content:space-between; padding:14px 0; }
+
+/* ---------- CARDS: estructura sólida ---------- */
+.card{
+  display:flex;               /* columna */
+  flex-direction:column;
+  background:#fff;
+  border:1px solid #e6efe7;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,.06);
+}
+
+/* Imagen consistente sin “huecos” */
+.card > img{
+  display:block;
+  width:100%;
+  height:auto;                /* fallback */
+  aspect-ratio: 4 / 3;        /* asegura proporción; si tu navegador no soporta, se ignora */
+  object-fit:cover;
+}
+
+/* Cuerpo de la tarjeta: ocupa todo el alto disponible */
+.card-b{
+  flex:1;                     /* que crezca para igualar alturas */
+  display:flex;
+  flex-direction:column;
+  padding:14px;
+  gap:8px;
+}
+
+/* Descripción puede crecer sin empujar el botón */
+.card-b .desc{
+  color:#6a7c73;
+  line-height:1.4;
+  flex:1;                     /* toma el espacio libre */
+}
+
+/* Pie: SIEMPRE pega al fondo */
+.card-f{
+  margin-top:auto;            /* esto empuja el bloque al fondo */
+  padding-top:8px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content:space-between;
+}
+
+.price{ font-weight:800; color:#2f8249; }
+
+/* Botón ocupa el ancho del pie en desktop y 100% si no hay precio */
+.card-f .btn{
+  min-width:140px;
+}
+
+/* Si prefieres botón SIEMPRE a lo ancho, descomenta: */
+/* .card-f .btn{ width:100%; } */
+
+/* Para que TODOS los botones queden a nivel incluso con textos largos */
+@media (max-width: 9999px){
+  #menuGrid .card{ height:100%; }
+}
+
+.footer{
+  background:#f8fdf9;
+  padding:20px 0;
+  border-top:1px solid #dce7de;
+  margin-top:40px;
+}
+
+.container-footer{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  text-align:center;
+}
+
+.container-footer p{
+  margin:0;
+  color:#2e7d32;
+  font-weight:600;
+}
+
+.social-links{
+  display:flex;
+  gap:18px;
+}
+
+.social-links a{
+  font-size:24px;
+  color:#2e7d32;
+  transition: color .2s;
+}
+
+.social-links a:hover{
+  color:#1b5e20;
+}
+
+/* ===== Menú hamburguesa + cortina ===== */
+.cv-burger{
+  position: fixed; top:14px; left:14px; z-index:1100;
+  width:36px; height:36px; border:0; border-radius:8px;
+  background:#2e7d32; color:#fff; cursor:pointer;
+  display:grid; place-items:center; box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+.cv-burger .bars, .cv-burger .bars::before, .cv-burger .bars::after{
+  content:""; display:block; width:20px; height:2px; background:#fff; border-radius:2px;
+  position:relative; transition:.2s;
+}
+.cv-burger .bars::before{ position:absolute; top:-6px; }
+.cv-burger .bars::after{ position:absolute; top:6px; }
+
+.cv-curtain{
+  position:fixed; inset:0; z-index:1099;
+  background:rgba(0,0,0,.82); backdrop-filter:blur(2px);
+  display:none;
+}
+.cv-curtain.open{ display:block; animation:cvFade .18s ease; }
+@keyframes cvFade{ from{opacity:0} to{opacity:1} }
+
+.cv-panel{
+  height:100%; width:min(92vw,360px);
+  background:#0f1a12; color:#e9f5ed;
+  padding:18px; box-shadow:8px 0 24px rgba(0,0,0,.35);
+}
+.cv-close{
+  border:0; background:transparent; color:#bfe6c8; font-size:26px; cursor:pointer;
+  margin-left:auto; display:block;
+}
+.cv-nav{ margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+.cv-link{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 10px; border-radius:12px; color:#e9f5ed; text-decoration:none;
+  background:#122017; transition:.15s;
+}
+.cv-link:hover{ background:#173a23; }
+
+.mini-cart {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #2e7d32; /* verde */
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+}
+.mini-cart span {
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+/* ===== Panel carrito mínimo ===== */
+.mini-panel{
+  position: fixed; inset: 0; background: rgba(0,0,0,.65);
+  display: grid; place-items: center; z-index: 1200;
+}
+.mini-panel[hidden]{ display:none; }
+
+.mp-card{
+  width: min(92vw, 420px); background: #0f1a12; color:#e9f5ed;
+  border-radius: 14px; padding: 14px; box-shadow: 0 16px 40px rgba(0,0,0,.45);
+}
+.mp-head{ display:flex; align-items:center; justify-content:space-between; }
+.mp-x{ background:transparent; border:0; color:#bfe6c8; font-size:26px; cursor:pointer; }
+
+.mp-list{ list-style:none; margin:12px 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.mp-item{ background:#122017; padding:10px; border-radius: 10px; display:grid; grid-template-columns:1fr auto; gap:6px; }
+.mp-name{ font-weight:700; }
+.mp-row{ display:flex; align-items:center; gap:6px; }
+.mp-row button{ border:0; cursor:pointer; border-radius:8px; padding:6px 10px; }
+.mp-dec{ background:#26352c; color:#e9f5ed; }
+.mp-inc{ background:#2e7d32; color:#fff;  }
+.mp-del{ background:#6a2a2a; color:#fff; }
+
+.mp-total{ display:flex; justify-content:space-between; font-size:1.05rem; margin:8px 0 12px; }
+.mp-actions{ display:flex; gap:10px; }
+.mp-actions .sec{ flex:1; background:#26352c; color:#e9f5ed; border:0; border-radius:12px; padding:10px; }
+.mp-actions .pri{ flex:2; background:#2e7d32; color:#fff; border:0; border-radius:12px; padding:10px; font-weight:800; }
+
+/* ==== ESTILOS SOLO PARA PERFIL ==== */
+.perfil-page {
+  background: url('imagenesfoodvegan/fondo-verduras2.jpg') no-repeat center center/cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.perfil-page .profile {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.perfil-page .p-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.perfil-page .avatar {
+  background: #2e7d32;
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.perfil-page .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.perfil-page .btn {
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-size: 14px;
+}
+.perfil-page .btn:hover { background: #256628; }
+
+.perfil-page .btn.sec { background: #555; }
+.perfil-page .btn.sec:hover { background: #333; }
+
+.perfil-page .btn.warn { background: #c62828; }
+.perfil-page .btn.warn:hover { background: #a61d1d; }
+
+.perfil-page .box {
+  margin-top: 16px;
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+/* ==== BOTONES EN PERFIL ==== */
+.perfil-page .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Botón gris (Editar perfil) */
+.perfil-page .btn.sec {
+  background: #555;
+}
+.perfil-page .btn.sec:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+/* Botón verde (Ver pedido) */
+.perfil-page .btn.success {
+  background: #2e7d32;
+}
+.perfil-page .btn.success:hover {
+  background: #256628;
+  transform: translateY(-2px);
+}
+
+/* Botón rojo (Cerrar sesión) */
+.perfil-page .btn.danger {
+  background: #c62828;
+}
+.perfil-page .btn.danger:hover {
+  background: #a61d1d;
+  transform: translateY(-2px);
+}
+
+.ajustes-page {
+  background: url('imagenesfoodvegan/fondo-verduras2.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.ajustes {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+.ajustes h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ajustes h3 {
+  margin: 16px 0 8px;
+  color: #2e7d32;
+}
+
+.ajustes label {
+  display: block;
+  margin: 10px 0;
+}
+
+.ajustes select,
+.ajustes input[type="checkbox"] {
+  margin-top: 4px;
+}
+
+.ajustes .btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ajustes .btn.sec {
+  background: #263238;
+  color: #fff;
+}
+
+.ajustes .btn.danger {
+  background: #d32f2f;
+  color: #fff;
+}
+
+.pedido-page {
+  background: url("imagenesfoodvegan/fondo.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+

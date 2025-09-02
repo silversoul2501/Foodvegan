@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodVegan - Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth">
+  <div class="formulario">
+    <h1>Bienvenido a VeganFood</h1>
+    <form method="post">
+  <div class="username">
+    <label for="loginUser">Nombre de usuario</label>
+    <input id="loginUser" type="text" required placeholder="Tu usuario o correo" />
+  </div>
+
+  <div class="contrasena">
+    <label for="loginPass">Contraseña</label>
+    <input id="loginPass" type="password" required placeholder="•••••••" />
+  </div>
+
+  <div class="recordar">
+    <a href="o.contraseña.html">¿Olvidó su contraseña?</a>
+  </div>
+
+  <input type="submit" value="Iniciar" class="btn" />
+
+  <div class="registrarse">
+    ¿Nuevo por aquí? <a href="registro.html">Regístrate</a>
+  </div>
+</form>
+
+  </div>
+
+  <!-- 🔑 Script de validación con localStorage -->
+  <script>
+  // Ejecuta cuando el DOM está listo por si el script está en <head>
+  document.addEventListener('DOMContentLoaded', () => {
+    const formLogin  = document.querySelector('form');
+    const userEl     = document.getElementById('loginUser');
+    const passEl     = document.getElementById('loginPass');
+
+    formLogin.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // valores del formulario
+      const usuarioInput = (userEl.value || '').trim().toLowerCase();
+      const passInput    = passEl.value || '';
+
+      // usuarios guardados
+      const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+      // buscamos por usuario O correo y password exacto
+      const ok = usuarios.find(u =>
+        ((u.usuario || '').toLowerCase() === usuarioInput ||
+         (u.correo  || '').toLowerCase() === usuarioInput) &&
+        (u.password === passInput)
+      );
+
+      if (ok) {
+        // guarda sesión en ambas claves para compatibilidad
+        localStorage.setItem('sesion', JSON.stringify(ok));
+        localStorage.setItem('usuarioActivo', JSON.stringify(ok));
+        // redirige al home
+        window.location.href = 'home.html';
+      } else {
+        alert('❌ Usuario o contraseña incorrectos');
+      }
+    });
+  });
+</script>
+</body>
+</html>

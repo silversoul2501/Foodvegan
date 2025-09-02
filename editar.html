@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar perfil</title>
+  <!-- Reutiliza tu CSS global -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth">
+
+  <div class="formulario">
+    <div class="logo">
+      <span class="leaf" aria-hidden="true">🌿</span>
+      <span>FoodVegan</span>
+    </div>
+
+    <h1>Editar perfil</h1>
+
+    <!-- Datos visibles del usuario -->
+    <form id="formEditar" autocomplete="off">
+      <div class="grid-2">
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" type="text" placeholder="Tu nombre" required />
+        </div>
+
+        <div class="campo">
+          <label for="usuario">Usuario</label>
+          <input id="usuario" type="text" readonly />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" type="email" readonly />
+      </div>
+
+      <hr style="border:0;border-top:1px solid #e4e7ea; margin:12px 0">
+
+      <!-- Cambio de contraseña -->
+      <div class="campo">
+        <label for="passActual">Contraseña actual</label>
+        <input id="passActual" type="password" placeholder="••••••" required />
+      </div>
+
+      <div class="grid-2">
+        <div class="campo">
+          <label for="passNueva">Nueva contraseña (opcional)</label>
+          <input id="passNueva" type="password" placeholder="••••••" minlength="6" />
+        </div>
+        <div class="campo">
+          <label for="passNueva2">Repetir nueva contraseña</label>
+          <input id="passNueva2" type="password" placeholder="••••••" minlength="6" />
+        </div>
+      </div>
+
+      <div class="hint" id="msg"></div>
+
+      <button type="submit" class="btn">Guardar cambios</button>
+
+      <div class="registrarse" style="margin-top:10px;">
+        <a href="home.html">← Volver al menú</a>
+      </div>
+    </form>
+  </div>
+<script>
+  // Lee la sesión desde varias posibles claves
+function getUsuarioActivo() {
+  const keys = ["usuarioActivo", "sesion", "user", "loggedUser", "usuarioLogueado"];
+  for (const k of keys) {
+    const raw = localStorage.getItem(k);
+    if (!raw) continue;
+    try { return JSON.parse(raw); } catch { return raw; } // puede venir como string
+  }
+  return null;
+}
+
+function findUser(usuarios, activo) {
+  if (!activo) return null;
+  if (typeof activo === "string") {
+    return usuarios.find(u => u.usuario === activo || u.correo === activo) || null;
+  }
+  if (typeof activo === "object") {
+    const { usuario, correo } = activo;
+    return usuarios.find(u => u.usuario === usuario || u.correo === correo) || null;
+  }
+  return null;
+}
+
+// --- uso ---
+const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+const activoRef = getUsuarioActivo();
+const user = findUser(usuarios, activoRef);
+
+if (!user) {
+  // si no hay sesión, muestra mensaje y manda al login
+  const msg = document.getElementById("msg");
+  msg.textContent = "No hay sesión activa. Inicia sesión primero.";
+  msg.className = "hint error";
+  setTimeout(() => (window.location.href = "index.html"), 900);
+} else {
+  // pinta datos en inputs (nombre, usuario, correo, etc.)
+  document.getElementById("nombre").value  = user.nombre || "";
+  document.getElementById("usuario").value = user.usuario || "";
+  document.getElementById("correo").value  = user.correo  || "";
+}
+</script>
+</body>
+</html>
+

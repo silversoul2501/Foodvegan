@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi perfil</title>
+  <link rel="stylesheet" href="style.css">      <!-- estilos globales -->
+  <link rel="stylesheet" href="perfil.css">     <!-- estilos exclusivos del perfil -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="perfil-page">
+  <main class="profile-wrap">
+    <div class="card profile">
+      <div class="brand-mini"><i class="fa-solid fa-leaf"></i> FoodVegan</div>
+
+      <!-- Cabecera -->
+      <div class="p-head">
+        <div class="avatar" id="pAvatar">FV</div>
+        <div>
+          <h1 class="p-title" id="pNombre">—</h1>
+          <div class="p-meta" id="pUsuario">@usuario</div>
+          <div class="mini" id="pCorreo">correo@dominio.com</div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <section class="box">
+        <h3>Información</h3>
+        <div class="row"><span>Nombre completo</span><strong id="iNombre">—</strong></div>
+        <div class="row"><span>Usuario</span><strong id="iUser">—</strong></div>
+        <div class="row"><span>Correo</span><strong id="iMail">—</strong></div>
+        <div class="row"><span>Items en carrito</span>
+          <strong><span id="iCarrito">0</span></strong>
+        </div>
+        <div class="actions" style="margin-top:12px">
+          <a href="editar.html" class="btn sec"><i class="fa-solid fa-pen"></i> Editar perfil</a>
+          <a href="pedido.html" class="btn pri"><i class="fa-solid fa-bag-shopping"></i> Ver pedido</a>
+          <button id="logoutBtn" class="btn warn"><i class="fa-solid fa-door-open"></i> Cerrar Sesion</button>
+        </div>
+      </section>
+
+      <!-- Último pedido -->
+      <section class="box">
+        <h3>Último pedido</h3>
+        <div id="lastOrder" class="empty">
+          <div class="row"><span>No hay pedidos confirmados.</span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- 👇 Script pegado en el mismo HTML -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Traer datos guardados en localStorage
+      const usuario = JSON.parse(localStorage.getItem("usuarioActivo")) || {
+        nombre: "Invitado",
+        correo: "—",
+        user: "—"
+      };
+
+      const ultimoPedido = JSON.parse(localStorage.getItem("pedidoConfirmado")) || null;
+      const carrito = JSON.parse(localStorage.getItem("cartSimple")) || [];
+
+      // Insertar datos de usuario
+      document.getElementById("pNombre").textContent = usuario.nombre || "Invitado";
+      document.getElementById("pUsuario").textContent = usuario.user ? `@${usuario.user}` : "@—";
+      document.getElementById("pCorreo").textContent = usuario.correo || "—";
+
+      document.getElementById("iNombre").textContent = usuario.nombre || "—";
+      document.getElementById("iUser").textContent = usuario.user || "—";
+      document.getElementById("iMail").textContent = usuario.correo || "—";
+
+      document.getElementById("iCarrito").textContent = carrito.reduce((s, p) => s + p.qty, 0);
+
+      // Avatar iniciales
+      const iniciales = usuario.nombre ? usuario.nombre.charAt(0).toUpperCase() : "FV";
+      document.getElementById("pAvatar").textContent = iniciales;
+
+      // Mostrar último pedido
+      const lastOrderEl = document.getElementById("lastOrder");
+      if (ultimoPedido) {
+        lastOrderEl.innerHTML = `
+          <div class="row"><span>Fecha</span><strong>${new Date(ultimoPedido.ts).toLocaleString()}</strong></div>
+          <div class="row"><span>Total</span><strong>$${ultimoPedido.total}</strong></div>
+          <div class="row"><span>Items</span><strong>${ultimoPedido.items.length}</strong></div>
+        `;
+      }
+
+      // Botón logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("usuarioActivo");
+        alert("Sesión cerrada ✅");
+        window.location.href = "index.html";
+      });
+    });
+  </script>
+</body>
+</html>

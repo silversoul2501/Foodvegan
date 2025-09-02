@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro</title>
+
+  <!-- misma fuente que el login -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth">
+  <div class="formulario">
+    <div class="logo">
+      <span class="leaf" aria-hidden="true">🍃</span>
+      <span>FoodVegan</span>
+    </div>
+
+    <h1>Crear cuenta</h1>
+
+    <form id="formRegistro" autocomplete="off">
+      <div class="grid-2">
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" type="text" placeholder="Tu nombre" required />
+        </div>
+        <div class="campo">
+          <label for="usuario">Usuario</label>
+          <input id="usuario" type="text" placeholder="ej: masterdeltofu" required />
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" type="email" placeholder="tucorreo@dominio.com" required />
+      </div>
+
+      <div class="grid-2">
+        <div class="campo">
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" placeholder="••••••••" minlength="6" required />
+        </div>
+        <div class="campo">
+          <label for="password2">Repetir contraseña</label>
+          <input id="password2" type="password" placeholder="••••••••" minlength="6" required />
+        </div>
+      </div>
+
+      <div class="hint" id="msg"></div>
+
+      <button type="submit" class="btn">Crear cuenta</button>
+
+      <div class="registrarse">
+        ¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formRegistro');
+    const msg  = document.getElementById('msg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nombre   = document.getElementById('nombre').value.trim();
+      const usuario  = document.getElementById('usuario').value.trim().toLowerCase();
+      const correo   = document.getElementById('correo').value.trim().toLowerCase();
+      const pass1    = document.getElementById('password').value;
+      const pass2    = document.getElementById('password2').value;
+
+      // validaciones simples
+      if (pass1 !== pass2) {
+        msg.textContent = 'Las contraseñas no coinciden.';
+        msg.className = 'hint error';
+        return;
+      }
+
+      // cargar usuarios previos
+      const guardados = JSON.parse(localStorage.getItem('usuarios') || '[]');
+
+      // revisar duplicados por usuario o correo
+      const existe = guardados.some(u => u.usuario === usuario || u.correo === correo);
+      if (existe) {
+        msg.textContent = 'Ese usuario o correo ya está registrado.';
+        msg.className = 'hint error';
+        return;
+      }
+
+      // guardar
+      guardados.push({ nombre, usuario, correo, password: pass1 });
+      localStorage.setItem('usuarios', JSON.stringify(guardados));
+
+      msg.textContent = 'Cuenta creada con éxito. Redirigiendo al inicio de sesión…';
+      msg.className = 'hint ok';
+
+      // redirigir al login
+      setTimeout(() => { window.location.href = 'index.html'; }, 900);
+    });
+  </script>
+</body>
+</html>

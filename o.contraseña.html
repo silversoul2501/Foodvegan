@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recuperar contraseña</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth">
+  <div class="formulario">
+    <div class="logo">
+      <span class="leaf">🍃</span>
+      <span>FoodVegan</span>
+    </div>
+
+    <h1>Recuperar contraseña</h1>
+
+    <form id="formRecuperar">
+      <div class="campo">
+        <label for="correo">Correo electrónico registrado</label>
+        <input id="correo" type="email" placeholder="ej: veggie@correo.com" required />
+      </div>
+
+      <div class="hint" id="msg"></div>
+
+      <button type="submit" class="btn">Enviar enlace al correo</button>
+
+      <div class="registrarse">
+        <a href="index.html">← Volver al inicio de sesión</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formRecuperar');
+    const msg  = document.getElementById('msg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const correo = document.getElementById('correo').value.trim();
+
+      if (!correo) {
+        msg.textContent = "Por favor ingresa un correo válido.";
+        msg.className = "hint error";
+        return;
+      }
+
+      // Mensaje simulado
+      msg.textContent = `🍃 Se envió un enlace de recuperación a ${correo}.`;
+      msg.className = "hint ok";
+
+      // limpiar campo después de unos segundos
+      setTimeout(() => { form.reset(); }, 2000);
+    });
+  </script>
+</body>
+</html>
